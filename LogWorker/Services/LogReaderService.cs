@@ -48,9 +48,9 @@ namespace LogWorker.Services
             using (FileStream fs = new FileStream(logPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using (StreamReader sr = new StreamReader(fs))
             {
-                string line;
+                string? line;
                 string previousLine = string.Empty;
-                while ((line = sr.ReadLine()) != null)
+                while ((line = sr.ReadLine()) is not null)
                 {
                     var loginLog = _userInfoService.FetchUserInfoOnLogin(line, _delimeter, logState);
                     var authenticationLog = _userInfoService.FetchUserInfoOnAuthenticate(line, sr, _delimeter, logState);

@@ -16,12 +16,13 @@ namespace Infrastructure.Repositories
 
         public async Task AddMatchesAsync(List<Match> matches)
         {
-            if(matches == null || matches.Count == 0)
+            if (matches == null || matches.Count == 0)
             {
                 return;
             }
 
             await _context.AddRangeAsync(matches);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<Match>> GetMatchesByMatchIds(List<string> matchIds)
