@@ -82,6 +82,7 @@ namespace LogWorker.Services
                 await _userInfoService.UpdateUserNameWithCodeIfExists(userInfo);
                 await _matchService.WriteMatches(matchesMapped);
                 await _rankService.WriteRankDetails(rankDetailsList);
+                await _deckService.WriteDecks(decksInfo);
             }
 
             _logger.LogInformation("Reader complete");

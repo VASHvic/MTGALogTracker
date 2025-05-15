@@ -6,12 +6,12 @@ namespace Infrastructure.Data
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
-        {            
+        {
         }
-
         public DbSet<UserInfo> Users { get; set; }
         public DbSet<PlayerRank> PlayerRanks { get; set; }
         public DbSet<Match> Matches { get; set; }
+        public DbSet<Deck> Decks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,10 +38,12 @@ namespace Infrastructure.Data
 
             modelBuilder.Entity<PlayerRank>()
            .HasIndex(u => u.LogId)
+           .IsUnique(); modelBuilder.Entity<Match>()
+           .HasIndex(u => u.MatchId)
            .IsUnique();
 
-            modelBuilder.Entity<Match>()
-           .HasIndex(u => u.MatchId)
+            modelBuilder.Entity<Deck>()
+           .HasIndex(d => d.DeckId)
            .IsUnique();
 
             modelBuilder.Entity<PlayerRank>()
