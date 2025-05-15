@@ -25,11 +25,11 @@ namespace LogWorker.Services.CoreServices
         public string FetchRankInfo(string line, string previousLine, StreamReader sr, LogAuthenticationState logState, string delimeter)
         {
             var timestampMatch = Regex.Match(previousLine, @"\[UnityCrossThreadLogger\]?\s*(\d{2}/\d{2}/\d{4} \d{1,2}:\d{2}:\d{2})");
-            if (line.Contains("Rank_GetCombinedRankInfo") && timestampMatch.Success)
+            if (line.Contains("RankGetCombinedRankInfo") && timestampMatch.Success)
             {
                 var timeStampString = previousLine.Replace("[UnityCrossThreadLogger]", "");
                 var timeStamp = DateTime.ParseExact(timeStampString, "dd/MM/yyyy H:mm:ss", CultureInfo.InvariantCulture);
-                var logId = line.Replace("<== Rank_GetCombinedRankInfo", "").Replace("(", "").Replace(")", "").Trim();
+                var logId = line.Replace("<== RankGetCombinedRankInfo", "").Replace("(", "").Replace(")", "").Trim();
                 var nextLine = sr.ReadLine();
                 var result = nextLine == null ? string.Empty : nextLine.Remove(nextLine.Length - 1, 1) + $",\"timeStamp\":\"{timeStamp}\",\"logId\":\"{logId}\",\"playerName\":\"{logState.UserName}\",\"mtgArenaUserId\":\"{logState.MtgArenaId}\"}}";
                 return result + delimeter;
